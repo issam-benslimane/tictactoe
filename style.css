@@ -1,0 +1,229 @@
+/* Box sizing rules */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Remove default margin */
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+figure,
+blockquote,
+dl,
+dd {
+  margin: 0;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  font: inherit;
+}
+
+/* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */
+ul[role="list"],
+ol[role="list"] {
+  list-style: none;
+}
+
+/* Set core root defaults */
+html:focus-within {
+  scroll-behavior: smooth;
+}
+
+/* Set core body defaults */
+body {
+  min-height: 100vh;
+  font-family: "Montserrat", sans-serif;
+  display: grid;
+  place-content: center;
+  background-color: black;
+  line-height: 1.5;
+}
+
+/* A elements that don't have a class get default styles */
+a:not([class]) {
+  text-decoration-skip-ink: auto;
+}
+
+/* Make images easier to work with */
+img,
+picture {
+  max-width: 100%;
+  display: block;
+}
+
+/* Remove all animations, transitions and smooth scroll for people that prefer not to see them */
+@media (prefers-reduced-motion: reduce) {
+  html:focus-within {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+main {
+  width: min(100%, 65rem);
+  margin-inline: auto;
+}
+
+.board {
+  --cell-size: 10rem;
+  display: grid;
+  grid-template-columns: repeat(3, var(--cell-size));
+}
+
+.cell {
+  --mark-size: 1rem;
+  font-size: 3rem;
+  font-weight: 700;
+  width: 100%;
+  aspect-ratio: 1;
+  border: 5px solid aliceblue;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.x,
+.circle {
+  pointer-events: none;
+}
+
+.x::before,
+.x::after {
+  content: "";
+  position: absolute;
+  width: var(--mark-size);
+  height: calc(var(--cell-size) * 0.6);
+  transform-origin: center;
+  background-color: aliceblue;
+  animation: fade-in 0.25s;
+}
+
+.x::before {
+  transform: rotate(42deg);
+}
+
+.x::after {
+  transform: rotate(-42deg);
+}
+
+.circle::before,
+.circle::after {
+  content: "";
+  position: absolute;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  animation: fade-in 0.25s;
+}
+
+.circle::before {
+  width: calc(var(--cell-size) * 0.6);
+  border: var(--mark-size) solid aliceblue;
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.board > *:nth-child(3n + 1) {
+  border-left: 0;
+  border-right: 0;
+}
+
+.board > *:nth-child(3n) {
+  border-right: 0;
+  border-left: 0;
+}
+
+.board > *:nth-child(-n + 3) {
+  border-top: 0;
+}
+
+.board > *:nth-child(n-3) {
+  border-bottom: 0;
+}
+
+.control {
+  display: flex;
+  justify-content: flex-end;
+  gap: 3em;
+  margin-top: 2em;
+}
+
+.control > p,
+label {
+  text-transform: uppercase;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: aliceblue;
+  opacity: 0.6;
+}
+
+.player.active {
+  opacity: 1;
+}
+
+.score {
+  font-size: 2rem;
+  font-weight: 500;
+}
+
+.mark {
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+input {
+  position: absolute;
+  width: 0;
+  height: 0;
+  opacity: 0;
+  left: 9000px;
+}
+
+label {
+  cursor: pointer;
+  transition: 0.25s;
+}
+
+label::before {
+  content: url("assets/account.png");
+}
+
+label::after {
+  content: "1P";
+  font-weight: 500;
+}
+
+input:checked + label::before {
+  content: url("assets/account-multiple.png");
+}
+
+input:checked + label::after {
+  content: "2P";
+}
+
+label:hover {
+  opacity: 1;
+}

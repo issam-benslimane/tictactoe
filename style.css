@@ -77,6 +77,8 @@ picture {
 main {
   width: min(100%, 65rem);
   margin-inline: auto;
+  display: grid;
+  gap: 2em;
 }
 
 .board {
@@ -99,7 +101,7 @@ main {
 }
 
 .x,
-.circle {
+.o {
   pointer-events: none;
 }
 
@@ -122,8 +124,8 @@ main {
   transform: rotate(-42deg);
 }
 
-.circle::before,
-.circle::after {
+.o::before,
+.o::after {
   content: "";
   position: absolute;
   aspect-ratio: 1;
@@ -131,7 +133,7 @@ main {
   animation: fade-in 0.25s;
 }
 
-.circle::before {
+.o::before {
   width: calc(var(--cell-size) * 0.6);
   border: var(--mark-size) solid aliceblue;
 }
@@ -167,7 +169,6 @@ main {
   display: flex;
   justify-content: flex-end;
   gap: 3em;
-  margin-top: 2em;
 }
 
 .control > p,
@@ -226,4 +227,28 @@ input:checked + label::after {
 
 label:hover {
   opacity: 1;
+}
+
+.cell--lose::before,
+.cell--lose:after {
+  opacity: 0.6;
+}
+
+.cell--win::before,
+.cell--win:after {
+  animation: gameOver 0.25s ease-in 3;
+}
+
+.cell--tie,
+.cell--tie {
+  animation: gameOver 1s ease-in;
+}
+
+@keyframes gameOver {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }

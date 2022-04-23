@@ -134,7 +134,6 @@ const Control = (function (obj) {
 
 // DOM manipulation
 const board = document.querySelector(".board");
-const restart = document.querySelector(".restart");
 renderCells();
 
 async function displayMark(pos) {
@@ -204,14 +203,14 @@ function gameOver(winner = null) {
   board.addEventListener("click", restartGame, { capture: true });
 }
 
-async function restartGame(ev) {
+function restartGame(ev) {
   ev.stopPropagation();
   renderCells();
-  this.removeEventListener("click", restartGame, { capture: true });
 }
 
 function renderCells() {
   board.innerHTML = "";
+  board.removeEventListener("click", restartGame, { capture: true });
   for (let i = 0; i < GRID_SIZE; i++) {
     const cell = document.createElement("div");
     cell.classList.add("cell");

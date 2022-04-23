@@ -231,7 +231,7 @@ label:hover {
 
 .cell--lose::before,
 .cell--lose:after {
-  opacity: 0.6;
+  filter: brightness(0.5);
 }
 
 .cell--win::before,
@@ -246,9 +246,9 @@ label:hover {
 
 @keyframes gameOver {
   0% {
-    opacity: 0;
+    filter: brightness(0.2);
   }
   100% {
-    opacity: 1;
+    filter: brightness(1);
   }
 }
